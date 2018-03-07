@@ -87,5 +87,16 @@ namespace TestJsonToExpando.Test
             var c = obj.C;
             Assert.IsInstanceOfType(c, typeof(ExpandoObject));
         }
+
+        private string[] _sourceLists = new string[] { "sample.json", "sample1.json" };
+
+        [TestMethod, DataSource("_sourceLists")]
+        public void TestJsonData(string fileName)
+        {
+            string json = ReadJsonFile.GetJsonFileContentAsString(fileName);
+            dynamic obj = JsonConvert.DeserializeObject(json);
+            Assert.IsInstanceOfType(obj, typeof(JObject));
+        }
+
     }
 }
